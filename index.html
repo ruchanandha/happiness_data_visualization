@@ -47,7 +47,7 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
     .enter()
     .append("circle")
       .attr("cx", function (d) { return x(d["Log GDP per capita"]);  )
-      .attr("cy", function (d) { eturn y(d["Positive affect"]); } )
+      .attr("cy", function (d) { return y(d["Positive affect"]); } )
       .attr("r", 1.5)
       .style("fill", "#69b3a2")
 

@@ -19,14 +19,14 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.</p>
+  <p>In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.<br><br><br></p>
 
   <!-- Graph Container -->
   <div id="my_dataviz"></div>
 
   <div id="paragraph">
     <p>
-      This is a new paragraph added to the right of the D3 graph. You can include any additional information or insights related to the graph or the happiness report here.
+      Next, we compare happiness levels to GDP per capita. Surprisingly, we find that the pursuit of material wealth doesn't guarantee happiness. Some economically thriving countries show lower happiness levels, while others with modest means shine with contentment. This revelation teaches us that happiness is not solely defined by material possessions but rather by the richness of our relationships and sense of community.
     </p>
   </div>
 
@@ -99,11 +99,11 @@
           .attr("r", 4) 
           .style("fill", function() { return getRandomColor(); })
           .on("mouseover", function(d) {
-            tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + "\n" + "Log GDP per capita: " + d["Log GDP per capita"] + "\n" + "Positive affect: " + d["Positive affect"])
+            tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + ", Log GDP per capita: " + d["Log GDP per capita"] + ", Positive affect: " + d["Positive affect"])
                   .style("visibility", "visible");
           })
           .on("mousemove", function() {
-            tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX - 200) + "px");
+            tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX - 300) + "px");
           })
           .on("mouseout", function() {
             tooltip.style("visibility", "hidden");

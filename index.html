@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Hello World</h1>
+<h1>Paths to Global Happiness: Finding Joy in Unity</h1>
 <meta charset="utf-8">
 
 <!-- Load d3.js -->
@@ -9,6 +9,7 @@
 
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
+<button onclick="changeGraph()">Power of Connection</button>
 <script>
 
 function getRandomColor() {
@@ -64,6 +65,48 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
       .style("fill", function() { return getRandomColor(); });
 
 });
+
+function updateGraph(xDomain, yDomain) {
+  // Remove existing graph elements
+  svg.selectAll("circle").remove();
+  svg.selectAll("g").remove();
+
+  // Update X axis
+  var x = d3.scaleLinear()
+    .domain([0, 20])
+    .range([0, width]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+  // Update Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 20])
+    .range([height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Add new dots with updated data
+  svg.append('g')
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(d[xDomain]); })
+      .attr("cy", function (d) { return y(d[yDomain]); })
+      .attr("r", 1.5)
+      .style("fill", function() { return getRandomColor(); });
+}
+
+// Function to handle the button click
+function changeGraph() {
+  // Define new x and y variables based on the dataset
+  var newXVar = "Social Support";
+  var newYVar = "Positive affect";
+
+  // Call the updateGraph function with the new variables
+  updateGraph(newXVar, newYVar);
+}
 </script>
 </body>
 </html>

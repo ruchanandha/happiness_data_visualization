@@ -4,52 +4,50 @@
   <meta charset="utf-8">
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <style> rect {fill: lightblue; stroke: black; }</style>
-
 </head>
 <body onload='init()'>
-  <p> hello, Happiness vs. GDP per Capita, Beyond Material Wealth </p>
-  <svg width="370" height="360"></svg>
-  <script> async function init() {
-    const data = await d3.csv('https://ruchanandha.github.io/report.csv');
-    // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 30, bottom: 30, left: 60};
+  <p> hi, Happiness vs. GDP per Capita, Beyond Material Wealth </p>
+  <svg width="800" height="600"></svg>
+  <script>
+    async function init() {
+      const data = await d3.csv('https://ruchanandha.github.io/report.csv');
+      // set the dimensions and margins of the graph
+      var margin = {top: 10, right: 30, bottom: 30, left: 60};
+      var width = 800 - margin.left - margin.right;
+      var height = 600 - margin.top - margin.bottom;
 
-    // append the svg object to the body of the page
-    d3.select("svg")
-    .append("g")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+      // append the svg object to the body of the page
+      var svg = d3.select("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    //Read the data
-
-    // Add X axis
-    var x = d3.scaleLinear()
+      // Add X axis
+      var x = d3.scaleLinear()
         .domain([0, 4000])
-        .range([ 0, width ]);
-    svg.append("g")
+        .range([0, width]);
+      svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
-    // Add Y axis
-    var y = d3.scaleLinear()
+      // Add Y axis
+      var y = d3.scaleLinear()
         .domain([0, 500000])
-    .   range([ height, 0]);
-    svg.append("g")
+        .range([height, 0]);
+      svg.append("g")
         .call(d3.axisLeft(y));
 
-    // Add dots
-    d3.select("svg").append("g")
+      // Add dots
+      svg.append("g")
         .selectAll("dot")
         .data(data)
         .enter()
         .append("circle")
-        .attr("cx", function (d) { return x(d.Log GDP per capita); } )
-        .attr("cy", function (d) { return y(d.Positive affect); } )
-        .attr("r", 1.5)
-        .style("fill", "#69b3a2")
+        .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
+        .attr("cy", function (d) { return y(d["Positive affect"]); })
+        .attr("r", 3)
+        .style("fill", "#69b3a2");
     }
   </script>
 </body>

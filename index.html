@@ -88,7 +88,7 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
       .attr("r", 4) 
       .style("fill", function() { return getRandomColor(); })
       .on("mouseover", function(d) {
-        tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + ", <br>Log GDP per capita: " + d["Log GDP per capita"] + ", <br>Positive affect: " + d["Positive affect"])
+        tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + "<br>Log GDP per capita: " + d["Log GDP per capita"] + "<br>Positive affect: " + d["Positive affect"])
                .style("visibility", "visible");
       })
       .on("mousemove", function() {

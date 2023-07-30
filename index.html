@@ -43,7 +43,7 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([0, 16]) // Adjust the domain to match your data range
+    .domain([0, 20]) // Adjust the domain to match your data range
     .range([0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")

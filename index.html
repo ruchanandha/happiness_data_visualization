@@ -19,7 +19,7 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>lol, In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
+  <p>ok, In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
 
   <div>
     <button style="background-color: #ff9900; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData()">Power of Connection</button>
@@ -65,6 +65,7 @@
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
+        
 
       // Add Y axis
       var y = d3.scaleLinear()
@@ -165,8 +166,8 @@
       // Read the data again with updated x and y axis data variables
       d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
 
-      var x = d3.scaleTime() // Use d3.scaleTime() for time-based data
-        .domain([new Date(2000, 0, 1), new Date(2025, 0, 1)]) // Specify the start and end dates of the data
+      var x = d3.scaleLinear()
+        .domain([2000, 2025]) // Adjust the domain to match your data range
         .range([0, width]);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")

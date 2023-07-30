@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8">
   <script src="https://d3js.org/d3.v3.min.js"></script>
+  <style> rect {fill: lightblue; stroke: black; }</style>
+
 </head>
 <body>
+  <svg width="300" height="300"></svg>
   <p> Happiness vs. GDP per Capita, Beyond Material Wealth </p>
-  <div id="my_dataviz"></div>
   <script>
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60},
@@ -14,8 +16,8 @@
     height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#my_dataviz")
-    .append("svg")
+    var svg = d3.select("#svg")
+    .append("g")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")

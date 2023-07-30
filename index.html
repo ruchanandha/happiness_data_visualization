@@ -19,9 +19,11 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>yup, In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
+  <p>woo, In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
 
   <button style="background-color: #ff9900; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData()">Power of Connection</button>
+  <button style="background-color: #ff9900; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1()">Journey of Progress</button>
+
   <div id="my_dataviz"></div>
 
   <div id="paragraph">
@@ -121,6 +123,12 @@
       paragraph.innerHTML = "<p>As we delve into the relationship between happiness and social support, the data reveals a compelling truth. Countries where people support and uplift each other tend to have higher happiness levels. This emphasizes the importance of cultivating compassion and empathy, as these qualities create a nurturing environment where happiness flourishes.</p>";
     }
 
+    function updateParagraphContent1() {
+      var paragraph = document.getElementById("paragraph");
+      // Update the text based on the selected axis data
+      paragraph.innerHTML = "<p>Our journey continues with a look at happiness factors over time. We observe how some nations have faced challenges but managed to improve happiness levels significantly. These stories of progress remind us that positive change is possible, and we must persevere through adversity to build a brighter future.</p>";
+    }
+
     // changing scenes 
 
     function changeAxisData() {
@@ -133,6 +141,109 @@
       // Update the graph with the new axis data
       updateGraph();
       updateParagraphContent();
+    }
+
+    function changeAxisData1() {
+      // Example: Toggle between different x and y axis data variables
+      currXVar = "Year";
+      currYVar = "Positive affect";
+
+      svg.selectAll("*").remove();
+
+      // Update the graph with the new axis data
+      updateGraph1();
+      updateParagraphContent1();
+    }
+
+    // Function to update the graph with the new axis data
+    function updateGraph1() {
+      // Read the data again with updated x and y axis data variables
+      d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
+
+      var x = d3.scaleLinear()
+        .domain([2000, 2025]) // Adjust the domain to match your data range
+        .range([0, width]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+      // Add Y axis
+      var y = d3.scaleLinear()
+        .domain([0, 1]) // Adjust the domain to match your data range
+        .range([height, 0]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+
+      // Add x-axis label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height + 40)
+        .style("text-anchor", "middle")
+        .text(currXVar);
+
+      // Add y-axis label
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", -40)
+        .style("text-anchor", "middle")
+        .text(currYVar);
+
+      // Add title label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", -margin.top / 2)
+        .style("text-anchor", "middle")
+        .style("font-size", "18px")
+        .style("font-weight", "bold")
+        .text("Scatterplot of " + currXVar + " vs. " + currYVar);
+
+      // Add dots
+      svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return x(d[currXVar]); })
+          .attr("cy", function (d) { return y(d[currYVar]); })
+          .attr("r", 4) 
+          .style("fill", function() { return getRandomColor(); })
+          .on("mouseover", function(d) {
+            tooltip.text("Country: " + d["Country name"] + ", Year: " + d["Year"] + ", " + currXVar + ": " + d[currXVar] + ", " + currYVar + ": " + d[currYVar])
+                  .style("visibility", "visible");
+          })
+          .on("mousemove", function() {
+            tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+          })
+          .on("mouseout", function() {
+            tooltip.style("visibility", "hidden");
+          })
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+
+       const annotations = [
+          {
+            note: {
+              label: "Strong positive correlation between " + currXVar + " and " + currYVar,
+              title: "Positive"
+            },
+            x: 30,
+            y: 10,
+            dy: 0,
+            dx: 0
+          }
+        ];
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+          .annotations(annotations);
+
+        // Append the annotations to the SVG
+        svg.append("g")
+          .attr("class", "annotation-group")
+          .call(makeAnnotations);
+      });
     }
 
     // Function to update the graph with the new axis data

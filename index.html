@@ -52,6 +52,29 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
     .range([height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
+   
+  // Add x-axis label
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + 40)
+    .style("text-anchor", "middle")
+    .text("Log GDP per capita");
+
+  // Add y-axis label
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", -40)
+    .style("text-anchor", "middle")
+    .text("Positive affect");
+
+  // Add title label
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", -margin.top / 2)
+    .style("text-anchor", "middle")
+    .style("font-size", "18px")
+    .text("Scatterplot of Log GDP per capita vs. Positive affect");
 
   // Add dots
   svg.append('g')
@@ -85,6 +108,40 @@ function updateGraph(xDomain, yDomain) {
     .range([height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
+
+    // Add x-axis label
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + 40)
+    .style("text-anchor", "middle")
+    .text("Social Support");
+
+    // Add y-axis label
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", -40)
+    .style("text-anchor", "middle")
+    .text("Positive Affect");
+
+  // Add title label
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", -margin.top / 2)
+    .style("text-anchor", "middle")
+    .style("font-size", "18px")
+    .text("Scatterplot of Social Support vs. Positive affect");
+
+  // Add dots
+  svg.append('g')
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
+      .attr("cy", function (d) { return y(d["Positive affect"]); })
+      .attr("r", 1.5) // Increase the radius to make the dots more visible
+      .style("fill", function() { return getRandomColor(); });
 
   // Add new dots with updated data
   svg.append('g')

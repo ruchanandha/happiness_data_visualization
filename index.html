@@ -19,7 +19,7 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>hello, In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.<br><br><br></p>
+  <p>hey, In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.<br><br><br></p>
 
   <button onclick="changeAxisData()">Power of Connection</button>
 
@@ -116,6 +116,12 @@
           .style("opacity", 1);
     });
 
+    function updateParagraphContent() {
+      var paragraph = document.getElementById("paragraph");
+      // Update the text based on the selected axis data
+      paragraph.innerHTML = "<p>As we delve into the relationship between happiness and social support, the data reveals a compelling truth. Countries where people support and uplift each other tend to have higher happiness levels. This emphasizes the importance of cultivating compassion and empathy, as these qualities create a nurturing environment where happiness flourishes.</p>";
+    }
+
     // changing scenes 
 
     function changeAxisData() {
@@ -127,6 +133,7 @@
 
       // Update the graph with the new axis data
       updateGraph();
+      updateParagraphContent();
     }
 
     // Function to update the graph with the new axis data

@@ -2,7 +2,7 @@
 <html>
 <body>
 <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-<p> In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.</p>
+<p> In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.<br></p>
 <meta charset="utf-8">
 
 <script src="https://d3js.org/d3.v4.js"></script>
@@ -77,6 +77,7 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
     .attr("y", -margin.top / 2)
     .style("text-anchor", "middle")
     .style("font-size", "18px")
+    .style("font-weight", "bold")
     .text("Scatterplot of Log GDP per capita vs. Positive affect");
 
   // Add dots

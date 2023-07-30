@@ -93,6 +93,10 @@ function updateGraph(xDomain, yDomain) {
   // Remove existing graph elements
   svg.selectAll("circle").remove();
   svg.selectAll("g").remove();
+  svg.selectAll("text").remove();
+
+  
+  d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
   
   // Update X axis
   var x = d3.scaleLinear()
@@ -143,6 +147,7 @@ function updateGraph(xDomain, yDomain) {
       .attr("r", 1.5)
       .style("fill", function() { return getRandomColor(); });
 }
+});
 
 // Function to handle the button click
 function changeGraph() {

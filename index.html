@@ -1,147 +1,158 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <title>Paths to Global Happiness: Finding Joy in Unity</title>
+  <style>
+    #my_dataviz {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    #paragraph {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 30px; /* Adjust the spacing between the graph and the paragraph */
+      width: 400px; /* Adjust the width of the paragraph container as needed */
+    }
+  </style>
+</head>
 <body>
-<h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-<p> In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.<br><br><br></p>
-<meta charset="utf-8">
+  <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
+  <p>In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.</p>
 
-<script src="https://d3js.org/d3.v4.js"></script>
-<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+  <!-- Graph Container -->
+  <div id="my_dataviz"></div>
 
+  <div id="paragraph">
+    <p>
+      This is a new paragraph added to the right of the D3 graph. You can include any additional information or insights related to the graph or the happiness report here.
+    </p>
+  </div>
 
-<div id="my_dataviz"></div>
-<button onclick="changeGraph()">Power of Connection</button>
-<button onclick="changeGraph()">Journey of Progress</button>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+  <script>
+    // set the dimensions and margins of the graph
+    var margin = {top: 30, right: 30, bottom: 60, left: 60},
+        width = 500 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
 
-<script>
+    // append the svg object to the body of the page
+    var svg = d3.select("#my_dataviz")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
 
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+    // Read the data
+    d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
+      // Add X axis
+      var x = d3.scaleLinear()
+        .domain([0, 16]) // Adjust the domain to match your data range
+        .range([0, width]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 60, left: 60},
-    width = 500 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+      // Add Y axis
+      var y = d3.scaleLinear()
+        .domain([0, 1]) // Adjust the domain to match your data range
+        .range([height, 0]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
 
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+      // Add x-axis label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height + 40)
+        .style("text-anchor", "middle")
+        .text("Log GDP per capita");
 
-// Read the data
-d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
+      // Add y-axis label
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", -40)
+        .style("text-anchor", "middle")
+        .text("Positive affect");
 
-  // Add X axis
-  var x = d3.scaleLinear()
-    .domain([0, 20]) // Adjust the domain to match your data range
-    .range([0, width]);
-  svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+      // Add title label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", -margin.top / 2)
+        .style("text-anchor", "middle")
+        .style("font-size", "18px")
+        .style("font-weight", "bold")
+        .text("Scatterplot of Log GDP per capita vs. Positive affect");
 
-  // Add Y axis
-  var y = d3.scaleLinear()
-    .domain([0, 1]) // Adjust the domain to match your data range
-    .range([height, 0]);
-  svg.append("g")
-    .call(d3.axisLeft(y));
-   
-  // Add x-axis label
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", height + 40)
-    .style("text-anchor", "middle")
-    .text("Log GDP per capita");
+      // Add dots
+      svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
+          .attr("cy", function (d) { return y(d["Positive affect"]); })
+          .attr("r", 4) 
+          .style("fill", function() { return getRandomColor(); })
+          .on("mouseover", function(d) {
+            tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + "\n" + "Log GDP per capita: " + d["Log GDP per capita"] + "\n" + "Positive affect: " + d["Positive affect"])
+                  .style("visibility", "visible");
+          })
+          .on("mousemove", function() {
+            tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX - 200) + "px");
+          })
+          .on("mouseout", function() {
+            tooltip.style("visibility", "hidden");
+          })
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+    });
 
-  // Add y-axis label
-  svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("x", -height / 2)
-    .attr("y", -40)
-    .style("text-anchor", "middle")
-    .text("Positive affect");
+    // create a tooltip
+    var tooltip = d3.select("#my_dataviz")
+      .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "1px solid #ccc")
+        .style("padding", "5px");
 
-  // Add title label
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", -margin.top / 2)
-    .style("text-anchor", "middle")
-    .style("font-size", "18px")
-    .style("font-weight", "bold")
-    .text("Scatterplot of Log GDP per capita vs. Positive affect");
+    // Features of the annotation
+    const annotations = [
+      {
+        note: {
+          label: "Little to no correlation between GDP and happiness",
+          title: "Weak"
+        },
+        x: width - 100,
+        y: 10,
+        dy: 0,
+        dx: 0
+      }
+    ];
 
-  // Add dots
-  svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-      .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
-      .attr("cy", function (d) { return y(d["Positive affect"]); })
-      .attr("r", 4) 
-      .style("fill", function() { return getRandomColor(); })
-      .on("mouseover", function(d) {
-        tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + "\n" + "Log GDP per capita: " + d["Log GDP per capita"] + "\n" + "Positive affect: " + d["Positive affect"])
-               .style("visibility", "visible");
-      })
-      .on("mousemove", function() {
-        tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX - 200) + "px");
-      })
-      .on("mouseout", function() {
-        tooltip.style("visibility", "hidden");})
-      .transition()
-      .duration(1000)
-      .style("opacity", 1);
-});
+    // Add annotation to the chart
+    const makeAnnotations = d3.annotation()
+      .annotations(annotations);
 
-// create a tooltip
+    // Append the annotations to the SVG
+    svg.append("g")
+      .attr("class", "annotation-group")
+      .call(makeAnnotations);
 
-var tooltip = d3.select("#my_dataviz")
-  .append("div")
-    .style("position", "absolute")
-    .style("visibility", "hidden")
-    .style("background-color", "white")
-    .style("border", "1px solid #ccc")
-    .style("padding", "5px");
-
-
-// Features of the annotation
-const annotations = [
-  {
-    note: {
-      label: "Little to no correlation between GDP and happiness",
-      title: "Weak"
-    },
-    x: width - 100,
-    y: 10,
-    dy: 0,
-    dx: 0
-  }
-];
-
-// Add annotation to the chart
-const makeAnnotations = d3.annotation()
-  .annotations(annotations);
-
-// Append the annotations to the SVG
-svg.append("g")
-  .attr("class", "annotation-group")
-  .call(makeAnnotations);
-
-
-</script>
-<p>
-    Next, we compare happiness levels to GDP per capita. Surprisingly, we find that the pursuit of material wealth doesn't guarantee happiness. Some economically thriving countries show lower happiness levels, while others with modest means shine with contentment. This revelation teaches us that happiness is not solely defined by material possessions but rather by the richness of our relationships and sense of community.
-</p>
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  </script>
 </body>
 </html>

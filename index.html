@@ -6,7 +6,6 @@
 <meta charset="utf-8">
 
 <script src="https://d3js.org/d3.v4.js"></script>
-<script src="https://d3-annotation.susielu.com/d3-annotation.min.js"></script>
 
 <div id="my_dataviz"></div>
 <button onclick="changeGraph()">Power of Connection</button>
@@ -84,13 +83,30 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
     .append("circle")
       .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
       .attr("cy", function (d) { return y(d["Positive affect"]); })
-      .attr("r", 1.5) // Increase the radius to make the dots more visible
+      .attr("r", 4) 
       .style("fill", function() { return getRandomColor(); })
-      .attr("title", function(d) {
-        return "Log GDP per capita: " + d["Log GDP per capita"] + ", Positive affect: " + d["Positive affect"];
-      }); // Add the tooltip text
-
+      .on("mouseover", function(d) {
+        tooltip.text("Log GDP per capita: " + d["Log GDP per capita"] + ", Positive affect: " + d["Positive affect"])
+               .style("visibility", "visible");
+      })
+      .on("mousemove", function() {
+        tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+      })
+      .on("mouseout", function() {
+        tooltip.style("visibility", "hidden");
+        });
 });
+
+// create a tooltip
+
+var tooltip = d3.select("#my_dataviz")
+  .append("div")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "white")
+    .style("border", "1px solid #ccc")
+    .style("padding", "5px");
+
 </script>
 </body>
 </html>

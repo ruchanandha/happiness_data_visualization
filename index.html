@@ -116,6 +116,92 @@
           .style("opacity", 1);
     });
 
+    // changing scenes 
+
+    function changeAxisData() {
+      // Example: Toggle between different x and y axis data variables
+      if (currentXVariable === "Log GDP per capita") {
+        currentXVariable = "Social support";
+        currentYVariable = "Positive affect";
+      } else {
+        currentXVariable = "Log GDP per capita";
+        currentYVariable = "Positive affect";
+      }
+
+      // Update the graph with the new axis data
+      updateGraph();
+    }
+
+    // Function to update the graph with the new axis data
+    function updateGraph() {
+      // Read the data again with updated x and y axis data variables
+      d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
+
+      var x = d3.scaleLinear()
+        .domain([0, 1]) // Adjust the domain to match your data range
+        .range([0, width]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+      // Add Y axis
+      var y = d3.scaleLinear()
+        .domain([0, 1]) // Adjust the domain to match your data range
+        .range([height, 0]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+
+      // Add x-axis label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height + 40)
+        .style("text-anchor", "middle")
+        .text(currXVar);
+
+      // Add y-axis label
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", -40)
+        .style("text-anchor", "middle")
+        .text(currYVar);
+
+      // Add title label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", -margin.top / 2)
+        .style("text-anchor", "middle")
+        .style("font-size", "18px")
+        .style("font-weight", "bold")
+        .text("Scatterplot of " + currXVar + " vs. " + currYVar);
+
+      // Add dots
+      svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return x(d[currXVar]); })
+          .attr("cy", function (d) { return y(d[currYVar]); })
+          .attr("r", 4) 
+          .style("fill", function() { return getRandomColor(); })
+          .on("mouseover", function(d) {
+            tooltip.text("Country: " + d["Country name"] + ", Year: " + d["Year"] + ", " + currXVar + ": " + d[currXVar] + ", " + currYVar + ": " + d[currYVar])
+                  .style("visibility", "visible");
+          })
+          .on("mousemove", function() {
+            tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+          })
+          .on("mouseout", function() {
+            tooltip.style("visibility", "hidden");
+          })
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+      });
+    }
+
+
     // create a tooltip
     var tooltip = d3.select("#my_dataviz")
       .append("div")
@@ -129,7 +215,7 @@
     const annotations = [
       {
         note: {
-          label: "Little to no correlation between GDP and happiness",
+          label: "Little to no correlation between " + currXVar + " and " + currYVar,
           title: "Weak"
         },
         x: width - 100,
@@ -156,6 +242,7 @@
       }
       return color;
     }
+
   </script>
 </body>
 </html>

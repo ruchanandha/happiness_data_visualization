@@ -93,7 +93,9 @@ function updateGraph(xDomain, yDomain) {
   // Remove existing graph elements
   svg.selectAll("circle").remove();
   svg.selectAll("g").remove();
-
+  svg.selectAll("text").remove();
+  
+  d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
   // Update X axis
   var x = d3.scaleLinear()
     .domain([0, 20])
@@ -104,7 +106,7 @@ function updateGraph(xDomain, yDomain) {
 
   // Update Y axis
   var y = d3.scaleLinear()
-    .domain([0, 20])
+    .domain([0, 1])
     .range([height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -133,7 +135,7 @@ function updateGraph(xDomain, yDomain) {
     .text("Scatterplot of Social Support vs. Positive affect");
 
   // Add dots
-  svg.append('g')
+  svg.append("g")
     .selectAll("dot")
     .data(data)
     .enter()
@@ -144,7 +146,7 @@ function updateGraph(xDomain, yDomain) {
       .style("fill", function() { return getRandomColor(); });
 
   // Add new dots with updated data
-  svg.append('g')
+  svg.append("g")
     .selectAll("dot")
     .data(data)
     .enter()
@@ -154,6 +156,7 @@ function updateGraph(xDomain, yDomain) {
       .attr("r", 1.5)
       .style("fill", function() { return getRandomColor(); });
 }
+});
 
 // Function to handle the button click
 function changeGraph() {

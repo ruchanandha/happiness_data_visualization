@@ -94,8 +94,6 @@ function updateGraph(xDomain, yDomain) {
   svg.selectAll("circle").remove();
   svg.selectAll("g").remove();
 
-  d3.select(id).html = ""
-
   // Update X axis
   var x = d3.scaleLinear()
     .domain([0, 20])

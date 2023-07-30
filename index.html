@@ -195,6 +195,28 @@
           .transition()
           .duration(1000)
           .style("opacity", 1);
+
+       const annotations = [
+          {
+            note: {
+              label: "Little to no correlation between " + currXVar + " and " + currYVar,
+              title: "Weak"
+            },
+            x: width - 100,
+            y: 10,
+            dy: 0,
+            dx: 0
+          }
+        ];
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+          .annotations(annotations);
+
+        // Append the annotations to the SVG
+        svg.append("g")
+          .attr("class", "annotation-group")
+          .call(makeAnnotations);
       });
     }
 

@@ -6,10 +6,11 @@
   <style> rect {fill: lightblue; stroke: black; }</style>
 
 </head>
-<body>
+<body onload='init()'>
   <p> hello, Happiness vs. GDP per Capita, Beyond Material Wealth </p>
   <svg width="370" height="360"></svg>
-  <script>
+  <script> async function init() {
+    const data = await d3.csv('https://ruchanandha.github.io/report.csv');
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60};
 
@@ -23,7 +24,6 @@
           "translate(" + margin.left + "," + margin.top + ")");
 
     //Read the data
-    d3.csv('https://ruchanandha.github.io/report.csv', function(data) {
 
     // Add X axis
     var x = d3.scaleLinear()
@@ -50,7 +50,7 @@
         .attr("cy", function (d) { return y(d.Positive affect); } )
         .attr("r", 1.5)
         .style("fill", "#69b3a2")
-    })
+    }
   </script>
 </body>
 </html>

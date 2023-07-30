@@ -5,7 +5,6 @@
 <p style="font-family: Verdana"> In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.</p>
 <meta charset="utf-8">
 
-
 <script src="https://d3js.org/d3.v4.js"></script>
 
 <div id="my_dataviz"></div>
@@ -85,11 +84,12 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
       .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
       .attr("cy", function (d) { return y(d["Positive affect"]); })
       .attr("r", 1.5) // Increase the radius to make the dots more visible
-      .style("fill", function() { return getRandomColor(); });
+      .style("fill", function() { return getRandomColor(); })
+      .attr("title", function(d) {
+        return "Log GDP per capita: " + d["Log GDP per capita"] + ", Positive affect: " + d["Positive affect"];
+      }); // Add the tooltip text
 
 });
 </script>
 </body>
 </html>
-
-

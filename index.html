@@ -8,6 +8,15 @@
 <div id="my_dataviz"></div>
 <script>
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 // set the dimensions and margins of the graph
 var margin = {top: 30, right: 30, bottom: 60, left: 60},
     width = 500 - margin.left - margin.right,
@@ -48,8 +57,8 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
     .append("circle")
       .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
       .attr("cy", function (d) { return y(d["Positive affect"]); })
-      .attr("r", 3) // Increase the radius to make the dots more visible
-      .style("fill", "#69b3a2");
+      .attr("r", 1.5) // Increase the radius to make the dots more visible
+      .style("fill", function() { return getRandomColor(); });
 
 });
 </script>

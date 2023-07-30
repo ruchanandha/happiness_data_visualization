@@ -7,14 +7,13 @@
 </head>
 <body onload='init()'>
   <p> hi, Happiness vs. GDP per Capita, Beyond Material Wealth </p>
-  <svg width="800" height="600"></svg>
   <script>
     async function init() {
-      const data = await d3.csv('https://ruchanandha.github.io/report.csv');
+      const data = await d3.csv('report.csv');
       // set the dimensions and margins of the graph
       var margin = {top: 10, right: 30, bottom: 30, left: 60};
-      var width = 800 - margin.left - margin.right;
-      var height = 600 - margin.top - margin.bottom;
+      var width = 460 - margin.left - margin.right;
+      var height = 400 - margin.top - margin.bottom;
 
       // append the svg object to the body of the page
       var svg = d3.select("svg")

@@ -21,7 +21,8 @@
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
   <p>In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Together, let's uncover the secrets of happiness and discover how unity can lead us to a brighter, happier world.<br><br><br></p>
 
-  <!-- Graph Container -->
+  <button onclick="changeAxisData()">Power of Connection</button>
+
   <div id="my_dataviz"></div>
 
   <div id="paragraph">
@@ -33,6 +34,8 @@
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
   <script>
+    var currXVar = "Log GDP per capita";
+    var currYVar = "Positive affect";
     // set the dimensions and margins of the graph
     var margin = {top: 30, right: 30, bottom: 60, left: 60},
         width = 500 - margin.left - margin.right,
@@ -69,7 +72,7 @@
         .attr("x", width / 2)
         .attr("y", height + 40)
         .style("text-anchor", "middle")
-        .text("Log GDP per capita");
+        .text(currXVar);
 
       // Add y-axis label
       svg.append("text")
@@ -77,7 +80,7 @@
         .attr("x", -height / 2)
         .attr("y", -40)
         .style("text-anchor", "middle")
-        .text("Positive affect");
+        .text(currYVar);
 
       // Add title label
       svg.append("text")
@@ -86,7 +89,7 @@
         .style("text-anchor", "middle")
         .style("font-size", "18px")
         .style("font-weight", "bold")
-        .text("Scatterplot of Log GDP per capita vs. Positive affect");
+        .text("Scatterplot of " + currXVar + " vs. " + currYVar);
 
       // Add dots
       svg.append('g')
@@ -94,12 +97,12 @@
         .data(data)
         .enter()
         .append("circle")
-          .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
-          .attr("cy", function (d) { return y(d["Positive affect"]); })
+          .attr("cx", function (d) { return x(d[currXVar]); })
+          .attr("cy", function (d) { return y(d[currYVar]); })
           .attr("r", 4) 
           .style("fill", function() { return getRandomColor(); })
           .on("mouseover", function(d) {
-            tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + ", Log GDP per capita: " + d["Log GDP per capita"] + ", Positive affect: " + d["Positive affect"])
+            tooltip.text("Country: " + d["Country name"] + ", Year: " + d["Year"] + ", " + currXVar + ": " + d[currXVar] + ", " + currYVar + ": " + d[currYVar])
                   .style("visibility", "visible");
           })
           .on("mousemove", function() {

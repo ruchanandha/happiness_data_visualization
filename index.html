@@ -9,9 +9,9 @@
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 300 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+var margin = {top: 30, right: 30, bottom: 60, left: 60},
+    width = 500 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -22,12 +22,12 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-//Read the data
+// Read the data
 d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([0, 20])
+    .domain([0, 20]) // Adjust the domain to match your data range
     .range([0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -35,7 +35,7 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 20])
+    .domain([0, 20]) // Adjust the domain to match your data range
     .range([height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -48,8 +48,9 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
     .append("circle")
       .attr("cx", function (d) { return x(d["Log GDP per capita"]); })
       .attr("cy", function (d) { return y(d["Positive affect"]); })
-      .attr("r", 1.5)
+      .attr("r", 3) // Increase the radius to make the dots more visible
       .style("fill", "#69b3a2");
 
 });
 </script>
+

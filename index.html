@@ -11,6 +11,8 @@
 
 <div id="my_dataviz"></div>
 <button onclick="changeGraph()">Power of Connection</button>
+<button onclick="changeGraph()">Journey of Progress</button>
+
 <script>
 
 function getRandomColor() {
@@ -88,7 +90,7 @@ d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
       .attr("r", 4) 
       .style("fill", function() { return getRandomColor(); })
       .on("mouseover", function(d) {
-        tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + "<br>Log GDP per capita: " + d["Log GDP per capita"] + "<br>Positive affect: " + d["Positive affect"])
+        tooltip.text("Country: " + d["Country name"] + ", Year " + d["Year"] + "\nLog GDP per capita: " + d["Log GDP per capita"] + "\nPositive affect: " + d["Positive affect"])
                .style("visibility", "visible");
       })
       .on("mousemove", function() {
@@ -114,8 +116,8 @@ var tooltip = d3.select("#my_dataviz")
 const annotations = [
   {
     note: {
-      label: "Weak",
-      title: "Little to no correlation between GDP and happiness"
+      label: "Little to no correlation between GDP and happiness",
+      title: "Weak"
     },
     x: width - 100,
     y: 10,

@@ -8,7 +8,7 @@
 </head>
 <body>
   <svg width="300" height="300"></svg>
-  <p> Happiness vs. GDP per Capita, Beyond Material Wealth </p>
+  <p> hi, Happiness vs. GDP per Capita, Beyond Material Wealth </p>
   <script>
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60},
@@ -16,7 +16,7 @@
     height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#svg")
+    d3.select("svg")
     .append("g")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -43,7 +43,7 @@
         .call(d3.axisLeft(y));
 
     // Add dots
-    svg.append('g')
+    d3.select("svg").append("g")
         .selectAll("dot")
         .data(data)
         .enter()

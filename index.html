@@ -5,6 +5,11 @@
   <title>Paths to Global Happiness: Finding Joy in Unity</title>
   <style>
 
+    #container {
+      display: inline-block;
+      vertical-align: top;
+    }
+
     #countryFilter {
       display: none;
     }
@@ -25,7 +30,7 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>yes,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. This is an interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world.<br><br><br></p>
+  <p>yup,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. This is an interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world.<br><br><br></p>
   <div id="container">
     <div>
       <button style="background-color: #FFCCCC; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData2()">Beyond Material Wealth</button>
@@ -40,7 +45,7 @@
       <button style="background-color: #E6E6FA; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData3()">Strength of Generosity</button>
     </div>
     <div>
-      <button style="background-color: #66ccff; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1(), toggleDropdown()">Journey of Progress</button>
+      <button style="background-color: #66ccff; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1()">Journey of Progress</button>
     </div>
 
     <label for="countryFilter">Select Country:</label>
@@ -151,13 +156,13 @@
     function updateParagraphContent() {
       var paragraph = document.getElementById("paragraph");
       // Update the text based on the selected axis data
-      paragraph.innerHTML = "<p>As we delve into the relationship between happiness and social support, the data reveals a compelling truth. Countries where people support and uplift each other tend to have higher happiness levels. This emphasizes the importance of cultivating compassion and empathy, as these qualities create a nurturing environment where happiness flourishes.</p>";
+      paragraph.innerHTML = "<p>As we delve into the relationship between happiness and social support, the data reveals a compelling truth. Countries where people support and uplift each other tend to have higher happiness levels. This emphasizes the importance of cultivating compassion and compassion, as these qualities create a nurturing environment where happiness flourishes.</p>";
     }
 
     function updateParagraphContent1() {
       var paragraph = document.getElementById("paragraph");
       // Update the text based on the selected axis data
-      paragraph.innerHTML = "<p>We observe how some nations have faced challenges but managed to improve happiness levels significantly. These stories of progress remind us that positive change is possible, and we must persevere through adversity to build a brighter future. Through this interactive narrative visualization, we discover that happiness is not merely an individual pursuit but a collective one. Unity, generosity, and social support form the bedrock of happiness. By understanding and embracing these shared values, we can build a world where every nation, every community, and every individual can experience genuine joy.</p>";
+      paragraph.innerHTML = "<p>We observe how some nations have faced challenges but managed to improve happiness levels significantly. These stories of progress remind us that positive change is possible, and we must persevere through adversity to build a brighter future. Through this interactive narrative visualization, we discover that happiness is not merely an individual pursuit but a collective one. Unity, empathy, and social support form the bedrock of happiness. By understanding and embracing these shared values, we can build a world where every nation, every community, and every individual can experience genuine joy.</p>";
     }
 
     function updateParagraphContent2() {
@@ -513,11 +518,6 @@
       updateParagraphContent4();
     }
 
-    function toggleDropdown() {
-        var dropdown = document.getElementById("country-select");
-        // Toggle the display property to show/hide the dropdown
-        dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
-        }
 
     // Function to update the graph with the new axis data
     function updateGraph1() {

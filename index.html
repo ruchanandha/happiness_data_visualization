@@ -25,7 +25,7 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>yay,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
+  <p>yes,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. This is an interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world.<br><br><br></p>
   <div id="container">
     <div>
       <button style="background-color: #FFCCCC; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData2()">Beyond Material Wealth</button>
@@ -40,11 +40,11 @@
       <button style="background-color: #E6E6FA; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData3()">Strength of Generosity</button>
     </div>
     <div>
-      <button style="background-color: #66ccff; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1()">Journey of Progress</button>
+      <button style="background-color: #66ccff; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1(), toggleDropdown()">Journey of Progress</button>
     </div>
 
     <label for="countryFilter">Select Country:</label>
-    <select id="countryFilter" onchange="updateGraph1()">
+    <select id="countryFilter" onchange="updateGraph()">
     <option value="">All Countries</option>
     <option value="Austria">Austria</option>
     <option value="Belarus">Belarus</option>
@@ -57,7 +57,7 @@
 
   <div id="paragraph">
     <p>
-      Next, we compare happiness levels to GDP per capita. Surprisingly, we find that the pursuit of material wealth doesn't guarantee happiness. Some economically thriving countries show lower happiness levels, while others with modest means shine with contentment. This revelation teaches us that happiness is not solely defined by material possessions but rather by the richness of our relationships and sense of community.
+      Countries with varying cultures, economies, and ideologies all seek happiness. This reminds us that happiness knows no borders; it's a universal desire that brings us together. <br><br>Here, we compare happiness levels to GDP per capita. Surprisingly, we find that the pursuit of material wealth doesn't guarantee happiness. This revelation teaches us that happiness is not solely defined by material possessions but rather by the richness of our relationships and sense of community.
     </p>
   </div>
 
@@ -175,7 +175,7 @@
     function updateParagraphContent4() {
       var paragraph = document.getElementById("paragraph");
       // Update the text based on the selected axis data
-      paragraph.innerHTML = "<p>corruption</p>";
+      paragraph.innerHTML = "<p>A higher perception of corruption hurts the idea of a nurturing and unfying country, thus, hurting relationships as well. This shows us that happiness is found in unity rather than betrayal.</p>";
     }
 
     // changing scenes 
@@ -512,6 +512,12 @@
       updateGraph4();
       updateParagraphContent4();
     }
+
+    function toggleDropdown() {
+        var dropdown = document.getElementById("country-select");
+        // Toggle the display property to show/hide the dropdown
+        dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+        }
 
     // Function to update the graph with the new axis data
     function updateGraph1() {

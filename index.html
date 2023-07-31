@@ -25,7 +25,7 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>ok,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
+  <p>hiiiii,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
   <div id="container">
     <div>
       <button style="background-color: #FFCCCC; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData2()">Beyond Material Wealth</button>
@@ -44,14 +44,6 @@
     </div>
   </div>
 
-  <div>
-  <label for="countryFilter">Filter by Country:</label>
-  <select id="countryFilter" onchange="updateGraphWithCountryFilter()">
-    <option value="">All Countries</option>
-    <!-- Add options for individual countries here if needed -->
-  </select>
-  </div>
-
   <div id="my_dataviz"></div>
 
   <div id="paragraph">
@@ -65,7 +57,6 @@
   <script>
     var currXVar = "Log GDP per capita";
     var currYVar = "Positive affect";
-    var selectedCountry = "";
     // set the dimensions and margins of the graph
     var margin = {top: 30, right: 30, bottom: 60, left: 60},
         width = 500 - margin.left - margin.right,
@@ -145,14 +136,6 @@
           .transition()
           .duration(5000)
           .style("opacity", 1);
-
-       var countryDropdown = document.getElementById("countryFilter");
-       var uniqueCountries = Array.from(new Set(data.map(d => d["Country name"])));
-       uniqueCountries.sort(); // Sort the country names alphabetically
-       uniqueCountries.forEach(function(country) {
-       var option = document.createElement("option");
-       option.text = country;
-       countryDropdown.add(option);});
 
     });
 
@@ -262,7 +245,7 @@
               title: "Negative"
             },
             x: 20,
-            y: 0,
+            y: 30,
             dy: 0,
             dx: 0
           }
@@ -521,22 +504,10 @@
       updateParagraphContent4();
     }
 
-    function updateGraphWithCountryFilter() {
-        selectedCountry = document.getElementById("countryFilter").value;
-        updateGraph();
-    }
-
     // Function to update the graph with the new axis data
     function updateGraph1() {
       // Read the data again with updated x and y axis data variables
       d3.csv("https://ruchanandha.github.io/report.csv", function(data) {
-
-      var filteredData = data;
-      if (selectedCountry !== "") {
-        // Apply the country filter if a country is selected
-        filteredData = data.filter(function(d) {
-        return d["Country name"] === selectedCountry; });
-      }
 
       var x = d3.scaleLinear()
         .domain([2000, 2025]) // Adjust the domain to match your data range

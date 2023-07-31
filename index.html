@@ -4,10 +4,6 @@
   <meta charset="utf-8">
   <title>Paths to Global Happiness: Finding Joy in Unity</title>
   <style>
-    #container {
-      display: inline-block;
-      vertical-align: top;
-    }
 
     #countryFilter {
       display: none;
@@ -29,7 +25,7 @@
 </head>
 <body>
   <h1>Paths to Global Happiness: Finding Joy in Unity</h1>
-  <p>um,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
+  <p>yay,In a world where countries strive for progress and prosperity, one essential aspect often overlooked is happiness. Welcome to the interactive journey through the World Happiness Report, where we'll explore the factors that contribute to the joy and well-being of nations. Let's uncover the secrets of happiness and discover how unity can lead us to a happier world. Explore how different factors have an impact on global happiness<br><br><br></p>
   <div id="container">
     <div>
       <button style="background-color: #FFCCCC; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData2()">Beyond Material Wealth</button>
@@ -44,11 +40,11 @@
       <button style="background-color: #E6E6FA; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData3()">Strength of Generosity</button>
     </div>
     <div>
-      <button style="background-color: #66ccff; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1(); toggleDropdown()">Journey of Progress</button>
+      <button style="background-color: #66ccff; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" onclick="changeAxisData1()">Journey of Progress</button>
     </div>
 
     <label for="countryFilter">Select Country:</label>
-    <select id="countryFilter" onchange="updateGraph()">
+    <select id="countryFilter" onchange="updateGraph1()">
     <option value="">All Countries</option>
     <option value="Austria">Austria</option>
     <option value="Belarus">Belarus</option>
@@ -515,12 +511,6 @@
       // Update the graph with the new axis data
       updateGraph4();
       updateParagraphContent4();
-    }
-
-     function toggleDropdown() {
-      var dropdown = document.getElementById("countryFilter");
-      // Toggle the display property to show/hide the dropdown
-      dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
     }
 
     // Function to update the graph with the new axis data
